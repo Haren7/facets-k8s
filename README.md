@@ -22,3 +22,8 @@
 
 2. Terraform deployment
 
+setup cdktf: https://developer.hashicorp.com/terraform/cdktf
+
+npm install
+
+cdktf deploy

@@ -3,8 +3,11 @@
 1. Kubectl yml deployment
 
   Setup 
+  
   minikube start --driver=docker
+  
   minikube addons enable ingress
+  
   minikube addons enable ingress-dns
   
   Deployment

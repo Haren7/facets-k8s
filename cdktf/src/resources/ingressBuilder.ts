@@ -12,7 +12,8 @@ export class IngressBuilder extends ResourceBuilder {
         const annotations: { [key: string]: string } = {
             'nginx.ingress.kubernetes.io/rewrite-target': '/',
             'nginx.ingress.kubernetes.io/canary': 'true',
-            'nginx.ingress.kubernetes.io/canary-weight': input.traffic_weight
+            'nginx.ingress.kubernetes.io/canary-weight': input.traffic_weight,
+            'kubernetes.io/ingress.class': "nginx"
         }
         new IngressV1(this.scope, `ingress-${input.name}`, {
             metadata: {

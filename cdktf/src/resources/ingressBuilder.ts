@@ -9,12 +9,21 @@ export class IngressBuilder extends ResourceBuilder {
     }
 
     public build(input: Application) {
-        const annotations: { [key: string]: string } = {
-            'nginx.ingress.kubernetes.io/rewrite-target': '/',
-            'nginx.ingress.kubernetes.io/canary': 'true',
-            'nginx.ingress.kubernetes.io/canary-weight': input.traffic_weight,
-            'kubernetes.io/ingress.class': "nginx"
+        let annotations: { [key: string]: string } = {}
+        if (input.isCanary) {
+            annotations = {
+                'nginx.ingress.kubernetes.io/rewrite-target': '/',
+                'nginx.ingress.kubernetes.io/canary': 'true',
+                'nginx.ingress.kubernetes.io/canary-weight': input.traffic_weight,
+                'kubernetes.io/ingress.class': "nginx"
+            }
+        } else {
+            annotations = {
+                'nginx.ingress.kubernetes.io/rewrite-target': '/',
+                'kubernetes.io/ingress.class': "nginx"
+            }
         }
+
         new IngressV1(this.scope, `ingress-${input.name}`, {
             metadata: {
                 name: input.name,
